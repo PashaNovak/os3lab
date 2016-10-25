@@ -55,21 +55,16 @@ int wmain(int argc, wchar_t * argv[], wchar_t * envp[])
 		FALSE, 0, NULL, NULL, &si, &piProcessP1);
 	if (fSuccess) {
 		CloseHandle(piProcessP1.hThread); //Закрываем описатель потока, как только в нем необходимость отпадет
-		cout << "Success!!!" << endl;
+		cout << "Process p1 was created successfully!" << endl;
 		char buf[10];
 		for (int i = 0; i < 10; i++) {
 			sprintf_s(buf, "%d", create_number());
 			writeToClipboard(buf, strlen(buf));
 			readFromClipboard();
 		}
-		//WaitForSingleObject(piProcessP1.hProcess, INFINITE); //Приостанавливаем выполнение родительского процессв, пока не завершится дочерний процесс
 		GetExitCodeProcess(piProcessP1.hProcess, &dwExitCode); // Дочерний процесс завершился, получаем код его завершения
 		CloseHandle(piProcessP1.hProcess); // Закрываем описатель процесса, как только необходимость в нем отпадет
 	}
-	/*lstrcpy(szPath, TEXT("ProcessP2"));
-	CreateProcess(NULL, szPath, &saProcess, &saThread,
-		FALSE, DEBUG_PROCESS, NULL, NULL, &sti, &piProcessP2);*/
-	//system("pause");
 	return 0;
 }
 
